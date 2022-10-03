@@ -30,6 +30,6 @@ class AuthorSeeder extends Seeder
 
           ];
 
-          Author::create($Author);
+          Author::insert($Author);
     }
 }

@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with('authors')->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -24,19 +24,12 @@ class PostController extends Controller
 
     public function savePost(Request $request)
     {
-        $author = '';
-        $category = '';
-        foreach($request->author as $auth) {
-             $author = $auth ;
-         }
-         foreach($request->category as $cat) {
-            $category = $cat;
-         }
+    $ids = json_encode($request->author);
      $post = new Post;
      $post->name = $request->name;
-     $post->author_id = $author;
-     $post->category_id = $category;
-    $post->save();
+     $post->save();
+    $post->authors()->sync($request->author);
+    $post->categories()->sync($request->category);
     return redirect()->route('index');
     }
 }

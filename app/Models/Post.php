@@ -15,9 +15,9 @@ class Post extends Model
     ];
 
     public function authors() {
-        return $this->belongsTo(Author::class,'author_id', 'id');
+        return $this->belongsToMany(Author::class,'detail_posts', 'post_id', 'author_id');
     }
     public function categories() {
-        return $this->belongsTo(Category::class,'category_id', 'id');
+        return $this->belongsToMany(Category::class,'detail_posts', 'post_id', 'category_id');
     }
 }
