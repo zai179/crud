@@ -10,14 +10,12 @@ class Post extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'author_id',
-        'category_id',
     ];
 
     public function authors() {
         return $this->belongsToMany(Author::class,'detail_posts', 'post_id', 'author_id');
     }
     public function categories() {
-        return $this->belongsToMany(Category::class,'detail_posts', 'post_id', 'category_id');
+        return $this->belongsToMany(Category::class,'category_post', 'post_id', 'category_id');
     }
 }

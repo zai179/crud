@@ -17,20 +17,27 @@
   </thead>
   <tbody>
     @foreach($posts as $post)
-    @foreach($post->authors as $authos)
-    @foreach($post->categories as $category )
     <tr >
       <th scope="row">{{$post->id}}</th>
       <td>{{@$post->name}}</td>
-
-      <td>{{@$authos->name}}</td>
-      <td>{{$category->name}}</td>
       <td>
-
+        <ul>
+        @foreach($post->authors as $author)
+      <li>{{@$author->name}}</li>
+      @endforeach
+      </ul>
+      </td>
+         <td>
+        <ul>
+        @foreach($post->categories as $cat)
+      <li>{{@$cat->name}}</li>
+      @endforeach
+      </ul>
+      </td>
+      <td>
+        <a href="{{route('delete', ['id' => $post->id])}}" class="btn btn-danger">Delete</a>
       </td>
     </tr>
-    @endforeach
-    @endforeach
     @endforeach
 
 

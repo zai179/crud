@@ -11,7 +11,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('authors')->get();
+        $posts = Post::with(['authors', 'categories'])->get();
+        // dd($posts);
         return view('posts.index', compact('posts'));
     }
 
@@ -28,8 +29,16 @@ class PostController extends Controller
      $post = new Post;
      $post->name = $request->name;
      $post->save();
-    $post->authors()->sync($request->author);
-    $post->categories()->sync($request->category);
+    $post->authors()->attach($request->author);
+    $post->categories()->attach($request->category);
     return redirect()->route('index');
+    }
+
+    public function delete($id)
+    {
+        $post = Post::find($id);
+        $post->authors()->detach();
+        $post->categories()->detach();
+        return redirect()->back();
     }
 }

@@ -26,7 +26,7 @@ Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard')
 Route::get('index', [PostController::class, 'index'])->name('index');
 Route::get('addpost', [PostController::class, 'addPost'])->name('addpost');
 Route::post('save-post', [PostController::class, 'savePost'])->name('save-post');
-
+Route::get('delete/{id}', [PostController::class, 'delete'])->name('delete');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
